@@ -38,16 +38,6 @@ export default class SideMenu extends Component {
     if(!this.state.subMenu) {
       return(
         <View>
-          <View style={{paddingLeft: 15, paddingRight: 15}}>
-            <Item error={this.state.searchError}>
-                <Input
-                  placeholder='Search...'
-                  onChangeText={(text) => this.setState({search: text, searchError: false})}
-                  onSubmitEditing={() => this.search()}
-                />
-                <Icon active name='ios-search-outline' onPress={() => this.search()} />
-            </Item>
-          </View>
           <View style={{paddingRight: 15}}>
             <List>
               <ListItem
@@ -57,7 +47,7 @@ export default class SideMenu extends Component {
                 onPress={() => Actions.home()}
               >
                 <Body>
-                  <Text>Home</Text>
+                  <Text>逛</Text>
                 </Body>
                 <Right>
                   <Icon name="ios-arrow-forward" />
@@ -70,18 +60,20 @@ export default class SideMenu extends Component {
           <View style={{paddingRight: 15}}>
             <List>
               {this.renderSecondaryList()}
+              <ListItem
+                icon
+                key={0}
+                button={true}
+                onPress={() => Actions.login()}
+              >
+                <Body>
+                  <Text>登出</Text>
+                </Body>
+                <Right>
+                  <Icon name="ios-arrow-forward" />
+                </Right>
+              </ListItem>
             </List>
-          </View>
-          <View style={styles.line} />
-          <View style={{paddingRight: 15, paddingLeft: 15}}>
-            <Text style={{marginBottom: 7}}>Follow us</Text>
-            <Grid>
-              <Col style={{alignItems: 'center'}}><Icon style={{fontSize: 18}} name='logo-facebook' onPress={() => Linking.openURL('http://www.facebook.com/').catch(err => console.error('An error occurred', err))} /></Col>
-              <Col style={{alignItems: 'center'}}><Icon style={{fontSize: 18}} name='logo-instagram' onPress={() => Linking.openURL('http://www.instagram.com/').catch(err => console.error('An error occurred', err))} /></Col>
-              <Col style={{alignItems: 'center'}}><Icon style={{fontSize: 18}} name='logo-twitter' onPress={() => Linking.openURL('http://www.twitter.com/').catch(err => console.error('An error occurred', err))} /></Col>
-              <Col style={{alignItems: 'center'}}><Icon style={{fontSize: 18}} name='logo-youtube' onPress={() => Linking.openURL('http://www.youtube.com/').catch(err => console.error('An error occurred', err))} /></Col>
-              <Col style={{alignItems: 'center'}}><Icon style={{fontSize: 18}} name='logo-snapchat' onPress={() => Linking.openURL('http://www.snapchat.com/').catch(err => console.error('An error occurred', err))} /></Col>
-            </Grid>
           </View>
         </View>
       );
@@ -199,7 +191,7 @@ const styles = {
 var menuItems = [
   {
     id: 1,
-    title: 'MEN',
+    title: '红宝石',
     subMenu: [
       {
         id: 5,
@@ -233,7 +225,7 @@ var menuItems = [
   },
   {
     id: 2,
-    title: 'WOMEN',
+    title: '蓝宝石',
     subMenu: [
       {
         id: 12,
@@ -267,28 +259,16 @@ var menuItems = [
   },
   {
     id: 3,
-    title: 'KIDS'
+    title: '祖母绿'
   },
   {
     id: 4,
-    title: 'ACCESORIES'
+    title: '玉石'
   }
 ];
 
 
 const menusSecondaryItems = [
-  {
-    id: 190,
-    title: 'Login',
-    icon: 'ios-person',
-    key: 'login'
-  },
-  {
-    id: 519,
-    title: 'Signup',
-    icon: 'ios-person-add',
-    key: 'signup'
-  },
   {
     id: 19,
     title: 'Wish List',
@@ -297,23 +277,9 @@ const menusSecondaryItems = [
   },
   {
     id: 20,
-    key: 'map',
-    title: 'Store Finder',
-    icon: 'ios-pin',
-    key: 'map'
-  },
-  {
-    id: 21,
     key: 'contact',
     title: 'Contact Us',
     icon: 'md-phone-portrait',
     key: 'contact'
-  },
-  {
-    id: 23,
-    key: 'newsletter',
-    title: 'Newsletter',
-    icon: 'md-paper',
-    key: 'newsletter'
   }
 ];

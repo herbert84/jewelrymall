@@ -62,22 +62,22 @@ export default class Home extends Component {
 var categories = [
   {
     id: 1,
-    title: 'MEN',
+    title: '红宝石',
     image: 'http://res.cloudinary.com/atf19/image/upload/c_scale,w_489/v1500284127/pexels-photo-497848_yenhuf.jpg'
   },
   {
     id: 2,
-    title: 'WOMEN',
+    title: '蓝宝石',
     image: 'http://res.cloudinary.com/atf19/image/upload/c_scale,w_460/v1500284237/pexels-photo-324030_wakzz4.jpg'
   },
   {
     id: 3,
-    title: 'KIDS',
+    title: '祖母绿',
     image: 'http://res.cloudinary.com/atf19/image/upload/c_scale,w_445/v1500284286/child-childrens-baby-children-s_shcevh.jpg'
   },
   {
     id: 4,
-    title: 'ACCESORIES',
+    title: '玉石',
     image: 'http://res.cloudinary.com/atf19/image/upload/c_scale,w_467/v1500284346/pexels-photo-293229_qxnjtd.jpg'
   }
 ];

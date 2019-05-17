@@ -5,7 +5,7 @@
 
 // React native and others libraries imports
 import React, { Component } from 'react';
-import { BackHandler } from 'react-native';
+import { BackHandler, SafeAreaView, StyleSheet } from 'react-native';
 import { Root } from 'native-base';
 import { Scene, Router, Actions } from 'react-native-router-flux';
 
@@ -32,26 +32,39 @@ export default class Main extends Component {
 
   render() {
     return(
-      <Root>
-        <Router>
-          <Scene key="root">
-            <Scene initial key="home" component={Home} hideNavBar />
-            <Scene key="search" component={Search} modal hideNavBar />
-            <Scene key="cart" component={Cart} modal hideNavBar />
-            <Scene key="wishlist" component={WishList} modal hideNavBar />
-            <Scene key="map" component={Map} modal hideNavBar />
-            <Scene key="contact" component={Contact} modal hideNavBar />
-            <Scene key="newsletter" component={Newsletter} modal hideNavBar />
-            <Scene key="category" component={Category} hideNavBar />
-            <Scene key="product" component={Product} hideNavBar />
-            <Scene key="imageGallery" component={ImageGallery} modal hideNavBar />
-            <Scene key="login" component={Login} hideNavBar />
-            <Scene key="signup" component={Signup} hideNavBar />
-            <Scene key="checkout" component={Checkout} hideNavBar />
-          </Scene>
-        </Router>
-      </Root>
+      <SafeAreaView style={styles.safeArea}>
+        <Root>
+          <Router>
+            <Scene hideNavBar>
+              <Scene key="root" tabs={true}>
+                <Scene key="home" title="逛" component={Home} hideNavBar />
+                <Scene key="redstone" title="红宝石" component={Category} hideNavBar />
+                <Scene key="bluestone" title="蓝宝石" component={Category} hideNavBar />
+                <Scene key="emerald" title="祖母绿" component={Category} hideNavBar />
+                <Scene key="jade" title="玉石" component={Category} hideNavBar />
+              </Scene>
+              <Scene key="search" component={Search} modal hideNavBar />
+              <Scene key="cart" component={Cart} modal hideNavBar />
+              <Scene key="wishlist" component={WishList} modal hideNavBar />
+              <Scene key="map" component={Map} modal hideNavBar />
+              <Scene key="contact" component={Contact} modal hideNavBar />
+              <Scene key="newsletter" component={Newsletter} modal hideNavBar />
+              <Scene key="category" component={Category} hideNavBar />
+              <Scene key="product" component={Product} hideNavBar />
+              <Scene key="imageGallery" component={ImageGallery} modal hideNavBar />
+              <Scene initial key="login" component={Login} hideNavBar />
+              <Scene key="signup" component={Signup} hideNavBar />
+              <Scene key="checkout" component={Checkout} hideNavBar />
+            </Scene>
+          </Router>
+        </Root>
+      </SafeAreaView>
     );
   }
-
 }
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#ddd'
+  }
+})

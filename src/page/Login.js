@@ -44,26 +44,23 @@ export default class Login extends Component {
     );
     return(
       <Container style={{backgroundColor: '#fdfdfd'}}>
-        <Navbar left={left} right={right} title="LOGIN" />
+        <Navbar title="登录" />
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', paddingLeft: 50, paddingRight: 50}}>
           <View style={{marginBottom: 35, width: '100%'}}>
-            <Text style={{fontSize: 24, fontWeight: 'bold', textAlign: 'left', width: '100%', color: Colors.navbarBackgroundColor}}>Welcome back, </Text>
-            <Text style={{fontSize: 18, textAlign: 'left', width: '100%', color: '#687373'}}>Login to continue </Text>
+            <Text style={{fontSize: 24, fontWeight: 'bold', textAlign: 'left', width: '100%', color: Colors.navbarBackgroundColor}}>欢迎回来, </Text>
           </View>
           <Item>
               <Icon active name='ios-person' style={{color: "#687373"}}  />
-              <Input placeholder='Username' onChangeText={(text) => this.setState({username: text})} placeholderTextColor="#687373" />
+              <Input placeholder='用户名' onChangeText={(text) => this.setState({username: text})} placeholderTextColor="#687373" />
           </Item>
           <Item>
               <Icon active name='ios-lock' style={{color: "#687373"}} />
-              <Input placeholder='Password' onChangeText={(text) => this.setState({password: text})} secureTextEntry={true} placeholderTextColor="#687373" />
+              <Input placeholder='密码' onChangeText={(text) => this.setState({password: text})} secureTextEntry={true} placeholderTextColor="#687373" />
           </Item>
           {this.state.hasError?<Text style={{color: "#c0392b", textAlign: 'center', marginTop: 10}}>{this.state.errorText}</Text>:null}
-          <View style={{alignItems: 'center'}}>
-            <Button onPress={() => this.login()} style={{backgroundColor: Colors.navbarBackgroundColor, marginTop: 20}}>
-              <Text style={{color: '#fdfdfd'}}>Login</Text>
-            </Button>
-          </View>
+          <Button onPress={() => this.login()} block style={{backgroundColor: Colors.navbarBackgroundColor, marginTop: 20}}>
+            <Text style={{color: '#fdfdfd'}}>登录</Text>
+          </Button>
         </View>
       </Container>
     );
@@ -75,7 +72,10 @@ export default class Login extends Component {
       Username: this.state.username
       Password: this.state.password
     */
-    this.setState({hasError: true, errorText: 'Invalid username or password !'});
+    if(!this.state.username || ! this.state.password)
+      this.setState({hasError: true, errorText: '用户名或密码错误 !'});
+    else
+      Actions.home()
   }
 
 
