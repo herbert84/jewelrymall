@@ -20,7 +20,8 @@ export default class RedstoneCategory extends Component {
   constructor(props) {
       super(props);
       this.state = {
-        items: []
+        items: [],
+        selectedTab: 0
       };
   }
 
@@ -64,6 +65,7 @@ export default class RedstoneCategory extends Component {
       <SideMenuDrawer ref={(ref) => this._sideMenuDrawer = ref}>
           <Container style={{backgroundColor: '#fdfdfd'}}>
             <Navbar left={left} right={right} title={this.props.title} />
+            {this.renderTopFilter()}
             <Content padder>
               {this.renderProducts()}
             </Content>
@@ -72,29 +74,81 @@ export default class RedstoneCategory extends Component {
     );
   }
   renderTopFilter(){
-    return (<View></View>);
+    return (<View style={{ height:40, flexDirection:'row', justifyContent: 'space-around'}}>
+        <View style={this.state.selectedTab === 0 ? styles.tabSelected:styles.tabUnSelected}>
+          <Button transparent onPress={()=>this.setState({selectedTab: 0})}>
+            <Text>成品</Text>
+          </Button>
+        </View>
+        <View style={this.state.selectedTab === 1 ? styles.tabSelected:styles.tabUnSelected}>
+          <Button transparent onPress={()=>this.setState({selectedTab: 1})}>
+            <Text>裸石</Text>
+          </Button>
+        </View>
+        <View>
+          <Button transparent style={styles.tabUnSelected}>
+            <Text>筛选</Text>
+          </Button>
+        </View></View>);
   }
   renderProducts() {
     let items = [];
-    let stateItems = this.state.items
-    for(var i=0; i<stateItems.length; i+=2 ) {
-      if(stateItems[i+1]) {
-        items.push(
-          <Grid key={i}>
-            <Product key={stateItems[i].id} product={stateItems[i]} />
-            <Product key={stateItems[i+1].id} product={stateItems[i+1]} isRight />
-          </Grid>
-        );
+    if(this.state.selectedTab === 0){
+      let stateItems = this.state.items
+      for(var i=0; i<stateItems.length; i+=2 ) {
+        if(stateItems[i+1]) {
+          items.push(
+            <Grid key={i}>
+              <Product key={stateItems[i].id} product={stateItems[i]} />
+              <Product key={stateItems[i+1].id} product={stateItems[i+1]} isRight />
+            </Grid>
+          );
+        }
+        else {
+          items.push(
+            <Grid key={i}>
+              <Product key={stateItems[i].id} product={stateItems[i]} />
+              <Col key={i+1} />
+            </Grid>
+          );
+        }
       }
-      else {
-        items.push(
-          <Grid key={i}>
-            <Product key={stateItems[i].id} product={stateItems[i]} />
-            <Col key={i+1} />
-          </Grid>
-        );
+    } else {
+      let stateItems = this.state.items
+      for(var i=0; i<stateItems.length; i+=2 ) {
+        if(stateItems[i+1]) {
+          items.push(
+            <Grid key={i}>
+              <Product key={stateItems[i].id} product={stateItems[i]} />
+              <Product key={stateItems[i+1].id} product={stateItems[i+1]} isRight />
+            </Grid>
+          );
+        }
+        else {
+          items.push(
+            <Grid key={i}>
+              <Product key={stateItems[i].id} product={stateItems[i]} />
+              <Col key={i+1} />
+            </Grid>
+          );
+        }
       }
     }
+    
     return items;
+  }
+}
+const styles = {
+  tabUnSelected:{
+    width: 100,
+    flexDirection: 'row', 
+    justifyContent: 'center'
+  },
+  tabSelected: {
+    width: 100, 
+    borderBottomWidth: 2, 
+    flexDirection: 'row', 
+    borderBottomColor: 'blue',
+    justifyContent: 'center'
   }
 }
