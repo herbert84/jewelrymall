@@ -66,12 +66,12 @@ export default class SideMenu extends Component {
                 button={true}
                 onPress={() => Actions.login()}
               >
-                <Body>
-                  <Text>登出</Text>
+                <Left>
+                  <Icon style={{fontSize: 18}} name="ios-log-out" />
+                </Left>
+                <Body style={{marginLeft: -15}}>
+                  <Text style={{fontSize: 16}}>登出</Text>
                 </Body>
-                <Right>
-                  <Icon name="ios-arrow-forward" />
-                </Right>
               </ListItem>
             </List>
           </View>

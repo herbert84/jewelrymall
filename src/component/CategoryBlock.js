@@ -25,7 +25,6 @@ export default class CategoryBlock extends Component {
             <View style={styles.border} />
             <View style={styles.text}>
               <Text style={styles.title}>{this.props.title}</Text>
-              <Text style={styles.subtitle}>Shop Now</Text>
             </View>
           </View>
         </TouchableOpacity>
@@ -34,7 +33,14 @@ export default class CategoryBlock extends Component {
   }
 
   _onPress() {
-    Actions.category({id: this.props.id, title: this.props.title});
+    switch(this.props.catKey){
+      case 'redstone': Actions.redstone();break;
+      case 'bluestone': Actions.bluestone();break;
+      case 'emerald': Actions.emerald();break;
+      case 'jade': Actions.jade();break;
+      default:break;
+    }
+    //Actions.category({id: this.props.id, title: this.props.title});
   }
 }
 
