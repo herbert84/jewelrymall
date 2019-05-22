@@ -46,14 +46,14 @@ export default class RedstoneCategory extends Component {
   render() {
     var left = (
       <Left style={{flex:1}}>
-        <Button onPress={() => this._sideMenuDrawer.open()} transparent>
+        <Button onPress={() => {this._filterDrawer.close(); this._sideMenuDrawer.open()}} transparent>
           <Icon name='ios-menu-outline' />
         </Button>
       </Left>
     );
     var right = (
       <Right style={{flex:1}}>
-        <Button onPress={() => Actions.cart()} transparent>
+        <Button onPress={() => {this._filterDrawer.close(); Actions.cart()}} transparent>
           <Icon name='ios-cart' />
         </Button>
       </Right>
@@ -77,17 +77,17 @@ export default class RedstoneCategory extends Component {
   renderTopFilter(){
     return (<View style={{ height:40, flexDirection:'row', justifyContent: 'space-around'}}>
         <View style={this.state.selectedTab === 0 ? styles.tabSelected:styles.tabUnSelected}>
-          <Button transparent onPress={()=>this.setState({selectedTab: 0})}>
+          <Button transparent onPress={()=>{this.setState({selectedTab: 0});this._filterDrawer.close()}}>
             <Text>成品</Text>
           </Button>
         </View>
         <View style={this.state.selectedTab === 1 ? styles.tabSelected:styles.tabUnSelected}>
-          <Button transparent onPress={()=>this.setState({selectedTab: 1})}>
+          <Button transparent onPress={()=>{this.setState({selectedTab: 1}); this._filterDrawer.close()}}>
             <Text>裸石</Text>
           </Button>
         </View>
         <View>
-          <Button onPress={() => this._filterDrawer.open()} transparent style={styles.tabUnSelected}>
+          <Button onPress={() => {this._sideMenuDrawer.close();this._filterDrawer.open()}} transparent style={styles.tabUnSelected}>
             <Text>筛选</Text>
           </Button>
         </View></View>);
