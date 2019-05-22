@@ -21,17 +21,14 @@ export default class Home extends Component {
     var left = (
       <Left style={{flex:1}}>
         <Button onPress={() => this._sideMenuDrawer.open()} transparent>
-          <Icon name='ios-menu-outline' />
+          <Icon name='ios-menu-outline' color='#eee'/>
         </Button>
       </Left>
     );
     var right = (
       <Right style={{flex:1}}>
-        <Button onPress={() => Actions.search()} transparent>
-          <Icon name='ios-search-outline' />
-        </Button>
         <Button onPress={() => Actions.cart()} transparent>
-          <Icon name='ios-cart' />
+          <Icon name='ios-cart' color='#eee' />
         </Button>
       </Right>
     );

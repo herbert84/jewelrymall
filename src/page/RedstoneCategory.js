@@ -13,6 +13,7 @@ import Text from '../component/Text';
 import Navbar from '../component/Navbar';
 import SideMenu from '../component/SideMenu';
 import SideMenuDrawer from '../component/SideMenuDrawer';
+import FilterDrawer from '../component/FilterDrawer';
 import Product from '../component/Product';
 
 
@@ -52,9 +53,6 @@ export default class RedstoneCategory extends Component {
     );
     var right = (
       <Right style={{flex:1}}>
-        <Button onPress={() => Actions.search()} transparent>
-          <Icon name='ios-search-outline' />
-        </Button>
         <Button onPress={() => Actions.cart()} transparent>
           <Icon name='ios-cart' />
         </Button>
@@ -62,15 +60,18 @@ export default class RedstoneCategory extends Component {
     );
 
     return(
-      <SideMenuDrawer ref={(ref) => this._sideMenuDrawer = ref}>
+         <SideMenuDrawer ref={(ref) => this._sideMenuDrawer = ref}>
           <Container style={{backgroundColor: '#fdfdfd'}}>
             <Navbar left={left} right={right} title={this.props.title} />
             {this.renderTopFilter()}
+            <FilterDrawer ref={(ref) => this._filterDrawer = ref}>
             <Content padder>
               {this.renderProducts()}
             </Content>
+            </FilterDrawer>
           </Container>
-      </SideMenuDrawer>
+          
+          </SideMenuDrawer>
     );
   }
   renderTopFilter(){
@@ -86,7 +87,7 @@ export default class RedstoneCategory extends Component {
           </Button>
         </View>
         <View>
-          <Button transparent style={styles.tabUnSelected}>
+          <Button onPress={() => this._filterDrawer.open()} transparent style={styles.tabUnSelected}>
             <Text>筛选</Text>
           </Button>
         </View></View>);
