@@ -38,11 +38,11 @@ export default class Cart extends Component {
     );
     return(
       <Container style={{backgroundColor: '#fdfdfd'}}>
-          <Navbar left={left} title="MY CART" />
+          <Navbar left={left} title="购物车" />
           {this.state.cartItems.length <=0 ?
             <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
               <Icon name="ios-cart" size={38} style={{fontSize: 38, color: '#95a5a6', marginBottom: 7}} />
-              <Text style={{color: '#95a5a6'}}>Your cart is empty</Text>
+              <Text style={{color: '#95a5a6'}}>您的购物车为空</Text>
             </View>
             :
             <Content style={{paddingRight: 10}}>
@@ -53,12 +53,12 @@ export default class Cart extends Component {
                 <Col style={{paddingLeft: 10,paddingRight: 5}}>
                   <Button onPress={() => this.checkout()} style={{backgroundColor: Colors.navbarBackgroundColor}} block iconLeft>
                     <Icon name='ios-card' />
-                    <Text style={{color: '#fdfdfd'}}>Checkout</Text>
+                    <Text style={{color: '#fdfdfd'}}>下单</Text>
                   </Button>
                 </Col>
                 <Col style={{paddingLeft: 5, paddingRight: 10}}>
                   <Button onPress={() => this.removeAllPressed()} style={{borderWidth: 1, borderColor: Colors.navbarBackgroundColor}} block iconRight transparent>
-                    <Text style={{color: Colors.navbarBackgroundColor}}>Emtpy Cart</Text>
+                    <Text style={{color: Colors.navbarBackgroundColor}}>清空购物车</Text>
                     <Icon style={{color: Colors.navbarBackgroundColor}} name='ios-trash-outline' />
                   </Button>
                 </Col>
@@ -82,11 +82,10 @@ export default class Cart extends Component {
           <Body style={{paddingLeft: 10}}>
             <Text style={{fontSize: 18}}>
               {item.quantity > 1 ? item.quantity+"x " : null}
-              {item.title}
+              {item.comment}
             </Text>
             <Text style={{fontSize: 16, fontWeight: 'bold', marginBottom: 10}}>{item.price}</Text>
             <Text style={{fontSize: 14 ,fontStyle: 'italic'}}>Color: {item.color}</Text>
-            <Text style={{fontSize: 14 ,fontStyle: 'italic'}}>Size: {item.size}</Text>
           </Body>
           <Right>
             <Button style={{marginLeft: -25}} transparent onPress={() => this.removeItemPressed(item)}>
@@ -101,11 +100,11 @@ export default class Cart extends Component {
 
   removeItemPressed(item) {
     Alert.alert(
-      'Remove '+item.title,
-      'Are you sure you want this item from your cart ?',
+      '删除 '+item.comment,
+      '确认要删除该宝石吗 ?',
       [
-        {text: 'No', onPress: () => console.log('No Pressed'), style: 'cancel'},
-        {text: 'Yes', onPress: () => this.removeItem(item)},
+        {text: '取消', onPress: () => console.log('No Pressed'), style: 'cancel'},
+        {text: '确定', onPress: () => this.removeItem(item)},
       ]
     )
   }
@@ -122,11 +121,11 @@ export default class Cart extends Component {
 
   removeAllPressed() {
     Alert.alert(
-      'Empty cart',
-      'Are you sure you want to empty your cart ?',
+      '清空购物车',
+      '您确定想要清空购物车 ?',
       [
-        {text: 'No', onPress: () => console.log('No Pressed'), style: 'cancel'},
-        {text: 'Yes', onPress: () => this.removeAll()}
+        {text: '取消', onPress: () => console.log('No Pressed'), style: 'cancel'},
+        {text: '确定', onPress: () => this.removeAll()}
       ]
     )
   }

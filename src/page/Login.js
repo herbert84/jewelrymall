@@ -6,7 +6,8 @@
 import React, { Component } from 'react';
 import { Container, View, Left, Right, Button, Icon, Item, Input } from 'native-base';
 import { Actions } from 'react-native-router-flux';
-
+import axios from 'axios';
+import Config from '../utils/Config';
 // Our custom files and classes import
 import Colors from '../Colors';
 import Text from '../component/Text';
@@ -51,11 +52,11 @@ export default class Login extends Component {
           </View>
           <Item>
               <Icon active name='ios-person' style={{color: "#687373"}}  />
-              <Input placeholder='用户名' onChangeText={(text) => this.setState({username: text})} placeholderTextColor="#687373" />
+              <Input placeholder='用户名' autoCapitalize="none" autoCorrect={false} onChangeText={(text) => this.setState({username: text})} placeholderTextColor="#687373" />
           </Item>
           <Item>
               <Icon active name='ios-lock' style={{color: "#687373"}} />
-              <Input placeholder='密码' onChangeText={(text) => this.setState({password: text})} secureTextEntry={true} placeholderTextColor="#687373" />
+              <Input placeholder='密码' autoCapitalize="none" autoCorrect={false} onChangeText={(text) => this.setState({password: text})} secureTextEntry={true} placeholderTextColor="#687373" />
           </Item>
           {this.state.hasError?<Text style={{color: "#c0392b", textAlign: 'center', marginTop: 10}}>{this.state.errorText}</Text>:null}
           <Button onPress={() => this.login()} block style={{backgroundColor: Colors.navbarBackgroundColor, marginTop: 20}}>
@@ -66,17 +67,47 @@ export default class Login extends Component {
     );
   }
 
-  login() {
+  async login() {
     /*
       Remove this code and replace it with your service
       Username: this.state.username
       Password: this.state.password
     */
-    if(!this.state.username || ! this.state.password)
+    if(!this.state.username || ! this.state.password){
       this.setState({hasError: true, errorText: '用户名或密码错误 !'});
-    else
-      Actions.home()
+    }
+    else{
+      var params = {
+        username: this.state.username,
+        password: this.state.password
+      };
+      axios({
+        method: 'GET',
+        url: Config.baseDomain+'/self/account',
+        responseType: 'json',
+        auth:params
+      }).then((res) => {
+        if(res.status === 200){
+          //alert(res.data);
+          global.storage.save({
+            key: 'jewelrymall',
+            data: { 
+              loginUserId: res.data.id,
+              loginUserName:res.data.login,
+              loginUserContactName: res.data.contact.name,
+              loginUserRole: res.data.role
+            },
+            expires: null
+          }).then(()=>{
+             Actions.home();
+           });
+        } else {
+          return false
+        }
+      }).catch((error)=>{
+        alert(error)
+        console.log(error);
+      });
+    } 
   }
-
-
 }

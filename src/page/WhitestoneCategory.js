@@ -18,7 +18,7 @@ import SideMenuDrawer from '../component/SideMenuDrawer';
 import FilterDrawer from '../component/FilterDrawer';
 import Product from '../component/Product';
 
-export default class RedstoneCategory extends Component {
+export default class WhitestoneCategory extends Component {
   constructor(props) {
       super(props);
       this.pageNo = 0;
@@ -52,7 +52,7 @@ export default class RedstoneCategory extends Component {
       "criteria": {
         "category": {
           "value": [
-            "SECONDARY_RED"
+            "SECONDARY_WHITE"
           ]
         }
       },

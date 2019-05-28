@@ -4,22 +4,25 @@
 
 // React native and others libraries imports
 import React, { Component } from 'react';
-import { Image } from 'react-native';
+import { Image, Dimensions } from 'react-native';
 import { View, Col, Card, CardItem, Body, Button } from 'native-base';
 import { Actions } from 'react-native-router-flux';
-
+import Config from '../utils/Config';
 // Our custom files and classes import
 import Colors from '../Colors';
 import Text from './Text';
 
+const productCardWidth = Dimensions.get('window').width/2-7
+
 export default class product extends Component {
   render() {
+    var imageUrl = Config.baseDomain+'/images/group/'+this.props.product.images[0].id+'/THUMBNAIL/content';
     return(
       <Col style={this.props.isRight ? style.leftMargin : style.rightMargin}>
         <Card transparent>
             <CardItem cardBody>
               <Button transparent style={style.button} onPress={() => this.pressed()}>
-                <Image source={{uri: this.props.product.image}} style={style.image}/>
+                <Image source={{uri: imageUrl}} style={style.image}/>
                 <View style={style.border} />
               </Button>
             </CardItem>
@@ -32,7 +35,7 @@ export default class product extends Component {
                     <Text
                       style={{fontSize: 16}}
                       numberOfLines={1}
-                    >{this.props.product.title}</Text>
+                    >{this.props.product.comment}</Text>
                     <View style={{flex: 1, width: '100%', alignItems: 'center'}}>
                       <View style={style.line} />
                       <Text style={style.price}>{this.props.product.price}</Text>
@@ -60,6 +63,7 @@ const style = {
     marginBottom: 7
   },
   rightMargin: {
+    width: productCardWidth,
     marginLeft: 0,
     marginRight: 7,
     marginBottom: 7

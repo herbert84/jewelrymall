@@ -16,6 +16,7 @@ export default class SideMenu extends Component {
   constructor(props) {
       super(props);
       this.state = {
+        loginUserContactName:"",
         search: "",
         searchError: false,
         subMenu: false,
@@ -25,7 +26,19 @@ export default class SideMenu extends Component {
 
       UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
   }
-
+  componentDidMount() {
+    global.storage.load({
+            key: 'jewelrymall',
+            autoSync: true,
+            syncInBackground: true
+        }).then(ret => {
+          this.setState({
+            loginUserContactName: ret.loginUserContactName
+          })
+      }).catch(err => {
+        console.warn(err.message);
+    });
+  }
   render() {
     return(
           <ScrollView style={styles.container}>
@@ -38,23 +51,8 @@ export default class SideMenu extends Component {
     if(!this.state.subMenu) {
       return(
         <View>
-          <View style={{paddingRight: 15}}>
-            <List>
-              <ListItem
-                icon
-                key={0}
-                button={true}
-                onPress={() => Actions.home()}
-              >
-                <Body>
-                  <Text>逛</Text>
-                </Body>
-                <Right>
-                  <Icon name="ios-arrow-forward" />
-                </Right>
-              </ListItem>
-              {this.renderMenuItems()}
-            </List>
+          <View style={{marginTop: 20,marginBottom: 15, paddingLeft: 15}}>
+            <Text style={{fontSize:20}}>欢迎您:{this.state.loginUserContactName}</Text>
           </View>
           <View style={styles.line} />
           <View style={{paddingRight: 15}}>
@@ -64,7 +62,9 @@ export default class SideMenu extends Component {
                 icon
                 key={0}
                 button={true}
-                onPress={() => Actions.login()}
+                onPress={() => {
+                  Actions.login()
+                }}
               >
                 <Left>
                   <Icon style={{fontSize: 18}} name="ios-log-out" />
@@ -191,71 +191,11 @@ const styles = {
 var menuItems = [
   {
     id: 1,
-    title: '红宝石',
-    subMenu: [
-      {
-        id: 5,
-        title: 'NEW IN'
-      },
-      {
-        id: 6,
-        title: 'JACKETS'
-      },
-      {
-        id: 7,
-        title: 'BLAZERS'
-      },
-      {
-        id: 8,
-        title: 'TROUSERS'
-      },
-      {
-        id: 9,
-        title: 'JEANS'
-      },
-      {
-        id: 10,
-        title: 'SHORTS'
-      },
-      {
-        id: 11,
-        title: 'SHOES'
-      }
-    ]
+    title: '红宝石'
   },
   {
     id: 2,
-    title: '蓝宝石',
-    subMenu: [
-      {
-        id: 12,
-        title: 'NEW IN'
-      },
-      {
-        id: 13,
-        title: 'JACKETS'
-      },
-      {
-        id: 14,
-        title: 'BLAZERS'
-      },
-      {
-        id: 15,
-        title: 'TROUSERS'
-      },
-      {
-        id: 16,
-        title: 'JEANS'
-      },
-      {
-        id: 17,
-        title: 'SHORTS'
-      },
-      {
-        id: 18,
-        title: 'SHOES'
-      }
-    ]
+    title: '蓝宝石'
   },
   {
     id: 3,
@@ -263,7 +203,7 @@ var menuItems = [
   },
   {
     id: 4,
-    title: '玉石'
+    title: '白钻'
   }
 ];
 
@@ -271,15 +211,20 @@ var menuItems = [
 const menusSecondaryItems = [
   {
     id: 19,
-    title: 'Wish List',
+    title: '我的订单',
     icon: 'heart',
-    key: 'wishlist'
+    key: 'orderlist'
   },
   {
     id: 20,
-    key: 'contact',
-    title: 'Contact Us',
-    icon: 'md-phone-portrait',
-    key: 'contact'
+    key: 'myinfo',
+    title: '我的信息',
+    icon: 'md-phone-portrait'
+  },
+  {
+    id:21,
+    key:'changePwd',
+    title: '更换密码',
+    icon: 'md-phone-portrait'
   }
 ];

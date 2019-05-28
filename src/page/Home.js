@@ -35,7 +35,7 @@ export default class Home extends Component {
     return(
       <SideMenuDrawer ref={(ref) => this._sideMenuDrawer = ref}>
           <Container>
-            <Navbar left={left} right={right} title="MY STORE" />
+            <Navbar left={left} right={right} title="宝石商城" />
             <Content>
               {this.renderCategories()}
             </Content>
